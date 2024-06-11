@@ -1,3 +1,4 @@
+using Content.Shared._CM14.Input;
 using Content.Shared.Input;
 using Robust.Shared.Input;
 
@@ -32,6 +33,7 @@ namespace Content.Client.Input
             common.AddFunction(ContentKeyFunctions.ToggleFullscreen);
             common.AddFunction(ContentKeyFunctions.MoveStoredItem);
             common.AddFunction(ContentKeyFunctions.RotateStoredItem);
+            common.AddFunction(ContentKeyFunctions.SaveItemLocation);
             common.AddFunction(ContentKeyFunctions.Point);
             common.AddFunction(ContentKeyFunctions.ZoomOut);
             common.AddFunction(ContentKeyFunctions.ZoomIn);
@@ -43,6 +45,9 @@ namespace Content.Client.Input
 
             // Not in engine because the engine doesn't understand what a flipped object is
             common.AddFunction(ContentKeyFunctions.EditorFlipObject);
+
+            // Not in engine so that the RCD can rotate objects
+            common.AddFunction(EngineKeyFunctions.EditorRotateObject);
 
             var human = contexts.GetContext("human");
             human.AddFunction(EngineKeyFunctions.MoveUp);
@@ -114,6 +119,15 @@ namespace Content.Client.Input
             common.AddFunction(ContentKeyFunctions.OpenDecalSpawnWindow);
             common.AddFunction(ContentKeyFunctions.OpenAdminMenu);
             common.AddFunction(ContentKeyFunctions.OpenGuidebook);
+
+
+            CMFunctions(contexts);
+        }
+
+        private static void CMFunctions(IInputContextContainer contexts)
+        {
+            var human = contexts.GetContext("human");
+            human.AddFunction(CMKeyFunctions.CMPumpShotgun);
         }
     }
 }
